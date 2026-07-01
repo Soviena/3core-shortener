@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 224, 255, 0.1);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(0, 224, 255, 0.15);
+        }
+        .timeline-line {
+            background: linear-gradient(to bottom, transparent, #00e0ff, transparent);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-container-low": "#f2f4f6",
+                      "inverse-surface": "#2d3133",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#131b2e",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#005f6d",
+                      "on-primary-container": "#7c839b",
+                      "surface-dim": "#d8dadc",
+                      "background": "#f7f9fb",
+                      "tertiary-container": "#0b1c30",
+                      "primary-fixed-dim": "#bec6e0",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary": "#000000",
+                      "surface-container-high": "#e6e8ea",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "inverse-primary": "#bec6e0",
+                      "primary": "#000000",
+                      "on-background": "#191c1e",
+                      "secondary-fixed-dim": "#00daf8",
+                      "primary-container": "#131b2e",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#006877",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "surface-container": "#eceef0",
+                      "surface": "#f7f9fb",
+                      "on-surface": "#191c1e",
+                      "inverse-on-surface": "#eff1f3",
+                      "surface-tint": "#565e74",
+                      "on-surface-variant": "#45464d",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "surface-bright": "#f7f9fb",
+                      "error": "#ba1a1a",
+                      "secondary-fixed": "#a5eeff",
+                      "on-tertiary-container": "#75859d",
+                      "on-secondary-fixed-variant": "#004e5a",
+                      "secondary-container": "#00e0ff",
+                      "tertiary-fixed": "#d3e4fe",
+                      "on-error-container": "#93000a",
+                      "outline-variant": "#c6c6cd",
+                      "outline": "#76777d",
+                      "primary-fixed": "#dae2fd",
+                      "on-secondary-fixed": "#001f25",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#e0e3e5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack-sm": "12px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "container-max": "1280px",
+                      "stack-lg": "48px",
+                      "gutter": "24px",
+                      "stack-md": "24px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Hanken Grotesk"],
+                      "headline-lg-mobile": ["Hanken Grotesk"],
+                      "body-lg": ["Geist"],
+                      "label-sm": ["JetBrains Mono"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "headline-sm": ["Hanken Grotesk"],
+                      "body-md": ["Geist"],
+                      "label-md": ["JetBrains Mono"]
+              },
+              "fontSize": {
+                      "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary-container/30">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm transition-all duration-300">
+<div class="max-w-container-max mx-auto px-margin-desktop flex items-center justify-between h-20">
+<span class="font-display-lg text-headline-sm font-extrabold tracking-tighter text-primary">TRICOREA</span>
+<div class="hidden md:flex items-center gap-stack-md">
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Services</a>
+<a class="font-body-md text-secondary font-bold border-b-2 border-secondary pb-1" href="#">About Us</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<a class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md hover:opacity-90 active:scale-95 transition-all" href="/shortener">
+                Shorten a URL
+            </a>
+</div>
+</nav>
+<!-- Hero / Vision Section -->
+<header class="relative pt-40 pb-stack-lg overflow-hidden">
+<div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(0,224,255,0.05),transparent_50%)]"></div>
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
+<div class="space-y-stack-md">
+<span class="font-label-md text-secondary uppercase tracking-[0.2em]">Our Vision</span>
+<h1 class="font-display-lg text-display-lg max-w-xl">Membawa Masa Depan IT ke Hari Ini</h1>
+<p class="font-body-lg text-on-surface-variant max-w-lg">
+                        We don't just solve problems; we engineer systems that define the next generation of digital hygiene. Clean, powerful, and impeccably reliable.
+                    </p>
+<a class="inline-block bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md hover:opacity-90 active:scale-95 transition-all" href="/shortener">Shorten a URL</a>
+</div>
+<div class="relative group">
+<div class="absolute -inset-4 bg-secondary/10 blur-3xl rounded-full opacity-30 group-hover:opacity-50 transition-opacity"></div>
+<img alt="" class="w-full h-[500px] object-cover rounded-xl shadow-2xl relative z-10 grayscale-[0.5] hover:grayscale-0 transition-all duration-700" data-alt="A futuristic, high-tech architectural space with glowing cyan neon lines reflecting on pristine white glass surfaces. The atmosphere is extremely hygienic, minimalist, and bright, conveying advanced IT infrastructure. Soft geometric shadows create a sense of deep perspective and structural integrity in a corporate laboratory setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArBkfgqyZPX6oPrjp-HO5Gxl5vGhYeVV1yqC2FgncZvI_8KUPk8zvLziH6882W-B0QfxIHjDoCXF2RJRxWYMKeN6wolABGdrlK9oSWs6ccpuZrm8aWhsNXs5CBUJn-ciwatj1KmBv3qvRmSm6SinbNrKPQ6Pm2RXGYYacAc6ox9WkTtMyetauajE4PIpDN2rxgNMXmDf0R9yU016jeWGBFLW36zUNyB9sHDAqnty1-1vmiATDOJEFxhzFw_ARrJJESPBnCuyVvG-Y"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Mission Bento Grid -->
+<section class="py-stack-lg bg-surface-container-low/30">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="flex flex-col items-center text-center mb-stack-lg">
+<span class="font-label-md text-secondary mb-base">CORE MISSION</span>
+<h2 class="font-headline-lg text-headline-lg">Redefining Excellence</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Innovation Card -->
+<div class="glass-card p-stack-md rounded-xl glow-hover transition-all flex flex-col gap-base">
+<div class="w-12 h-12 flex items-center justify-center bg-primary text-on-primary rounded-lg mb-stack-sm">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Innovation</h3>
+<p class="text-on-surface-variant">Pushing boundaries through R&amp;D in AI and cloud architecture to ensure your business stays ahead of the technical curve.</p>
+</div>
+<!-- Speed Card -->
+<div class="glass-card p-stack-md rounded-xl glow-hover transition-all flex flex-col gap-base">
+<div class="w-12 h-12 flex items-center justify-center bg-secondary-container text-on-secondary-container rounded-lg mb-stack-sm">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Speed</h3>
+<p class="text-on-surface-variant">Agile methodologies integrated into our core DNA, delivering complex enterprise solutions at the speed of light.</p>
+</div>
+<!-- Success Card -->
+<div class="glass-card p-stack-md rounded-xl glow-hover transition-all flex flex-col gap-base">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-highest text-primary rounded-lg mb-stack-sm">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Client Success</h3>
+<p class="text-on-surface-variant">Your growth is our metric. We build long-term partnerships rooted in measurable technical performance and ROI.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Leadership Section -->
+<section class="py-stack-lg">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="mb-stack-lg">
+<span class="font-label-md text-secondary">OUR LEADERSHIP</span>
+<h2 class="font-headline-lg text-headline-lg">Technical Architects</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Leader 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] overflow-hidden rounded-lg mb-stack-sm relative">
+<img alt="" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="A professional portrait of a tech executive with a confident expression, wearing a minimalist black turtleneck. The background is a clean, out-of-focus high-tech office with cool blue lighting. The style is cinematic and high-contrast, representing authority and modern leadership in the technology sector." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvAZCY20KwYrTV3xkUps8DJWAy3fxu02uPAjjTsmo2n2XEbWR14iZLffKlYULcJmajw08vH6QMULjNDHldMq0eD4gyF1L-az_Q84a_amjT1nCORkPZnSMqDZt3K-FOzLtOWoK8GCmGqWH9CFmKuGDmATZxD2iMBqWrbSCdLSDyPIcz3IcV07lzRpcY3MzJR9XBMLHHLLFTIT-382agu4yTkE3zRYa18q8xO1XQBkhGe8D3XumBO7OhQB7gffyIBwWVhMAzT8H1BB8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-stack-sm">
+<span class="text-on-primary font-label-sm">VIEW PROFILE</span>
+</div>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-1">Alex Chen</h4>
+<p class="font-label-sm text-secondary">CHIEF TECHNOLOGY OFFICER</p>
+</div>
+<!-- Leader 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] overflow-hidden rounded-lg mb-stack-sm relative">
+<img alt="" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="Professional studio portrait of a female software architect with a focused gaze. She is set against a minimalist light gray background with subtle geometric cyan lens flares. The lighting is crisp and soft, emphasizing a highly professional, intelligent, and clean tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgmEH1UzxTkW8Q7RzXUmp8db3e0QSP4eVTIBsiROULdQZMsy52XzrrhCs6pEDuAqLG6CFtJA8DT28_Z913hTTzDMfnJlImN9Z0ZInJHLY8jK8tkFU4hLMHhmJ90iZHKHBzPmjFh7UV7UWYGnuTNcMydXzgSnFKgQYjD32BxPw90x4QGGEaVwt--G6caQGguGXWIa8-gnD1FhswtBJ9vJ_ujtHzodfOC1cdSn3gNb1uVlvtGs-q-IlhFSVn_ngioalNDRNV_9kBuqo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-stack-sm">
+<span class="text-on-primary font-label-sm">VIEW PROFILE</span>
+</div>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-1">Sarah Wijaya</h4>
+<p class="font-label-sm text-secondary">HEAD OF INFRASTRUCTURE</p>
+</div>
+<!-- Leader 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] overflow-hidden rounded-lg mb-stack-sm relative">
+<img alt="" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="Corporate headshot of a male data scientist with glasses, looking thoughtful. The setting is a bright, airy modern laboratory with blurred digital screens in the background. The lighting uses cool white and deep blue tones to convey technical expertise and high-performance IT consulting vibes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgWazBhTlse29q3SyuiP8__Bz6nZlwIiSK20ag4A6KAoguTqU1OXjCgUwAPJnqpyGtsNzs9zoVN4vX0fwBddIvHZQc6ajIWvbvVdndY_6d3Q07jtIJUDyQkP3nnXdoTG5o7P9FsvJcvdOOgOALjYIFopCcx6hUhjdGH-lvD3meLV9AVSA3RaR3zRjBHbGc80MEVpJQYGY3eoNboe4jiU_PvTiTK3ATvDUcnmXb2JxMPN8PgWE6wIbqnRiGEfnIS3jJZxCxfmMJ-mM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-stack-sm">
+<span class="text-on-primary font-label-sm">VIEW PROFILE</span>
+</div>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-1">David Kim</h4>
+<p class="font-label-sm text-secondary">AI RESEARCH LEAD</p>
+</div>
+<!-- Leader 4 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] overflow-hidden rounded-lg mb-stack-sm relative">
+<img alt="" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="A portrait of a young, energetic female product manager in a sleek minimalist tech hub. The lighting is dynamic with soft highlights, creating a look of innovation and accessibility. The color palette is dominated by whites, grays, and electric cyan accents, echoing a modern digital hygiene aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-TitNLX_ejw6rH45F550_Oibkv1rsvTV7DWpNK4yMqoIoPHwgXvnlhMzMnr860t26JqQwAQSOomL4dHVA2tUZ4MtiRtyaNtnay85OVaN-KwvT3q3Py9kg5oMvK90QYHoefYhWPlVLwJnwoMD-ROC2qg5pofhkLC_dLSFoWno_m-n817WAdRG6nyglwVzKUz0fePci2kCZLDKjom69aFzv9Zob2qxHBanmGrDAPCEdNoFkUKjg3cUR_b6MIeu51sYaX8w7uRzIV1g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-stack-sm">
+<span class="text-on-primary font-label-sm">VIEW PROFILE</span>
+</div>
+</div>
+<h4 class="font-headline-sm text-headline-sm mb-1">Elena Rossi</h4>
+<p class="font-label-sm text-secondary">CREATIVE SOLUTIONS DIRECTOR</p>
+</div>
+</div>
+</div>
+</section>
+<!-- History Timeline -->
+<section class="py-stack-lg bg-surface">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="flex flex-col items-center text-center mb-stack-lg">
+<span class="font-label-md text-secondary mb-base">OUR JOURNEY</span>
+<h2 class="font-headline-lg text-headline-lg">Building the Future</h2>
+</div>
+<div class="relative max-w-4xl mx-auto">
+<div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px timeline-line hidden md:block"></div>
+<div class="space-y-stack-lg">
+<!-- 2024 -->
+<div class="relative flex items-center justify-center md:justify-between flex-col md:flex-row gap-stack-md">
+<div class="md:w-[45%] text-right hidden md:block">
+<span class="font-display-lg text-headline-lg opacity-10">2024</span>
+</div>
+<div class="w-4 h-4 rounded-full bg-secondary ring-4 ring-secondary-container z-10 shrink-0"></div>
+<div class="md:w-[45%] bg-white p-stack-md rounded-xl shadow-sm border border-outline-variant/10">
+<div class="md:hidden font-display-lg text-headline-sm text-secondary mb-base">2024</div>
+<h5 class="font-headline-sm mb-base">Global Expansion</h5>
+<p class="text-on-surface-variant">Opened dedicated R&amp;D hubs across Southeast Asia, focusing on sovereign cloud solutions and edge computing.</p>
+</div>
+</div>
+<!-- 2022 -->
+<div class="relative flex items-center justify-center md:justify-between flex-col md:flex-row-reverse gap-stack-md">
+<div class="md:w-[45%] text-left hidden md:block">
+<span class="font-display-lg text-headline-lg opacity-10">2022</span>
+</div>
+<div class="w-4 h-4 rounded-full bg-primary ring-4 ring-surface-container-highest z-10 shrink-0"></div>
+<div class="md:w-[45%] bg-white p-stack-md rounded-xl shadow-sm border border-outline-variant/10">
+<div class="md:hidden font-display-lg text-headline-sm text-primary mb-base">2022</div>
+<h5 class="font-headline-sm mb-base">Digital Hygiene Standards</h5>
+<p class="text-on-surface-variant">Pioneered the 'Digital Hygiene' framework for enterprise clients, streamlining legacy codebases for 200+ corporations.</p>
+</div>
+</div>
+<!-- 2018 -->
+<div class="relative flex items-center justify-center md:justify-between flex-col md:flex-row gap-stack-md">
+<div class="md:w-[45%] text-right hidden md:block">
+<span class="font-display-lg text-headline-lg opacity-10">2018</span>
+</div>
+<div class="w-4 h-4 rounded-full bg-primary ring-4 ring-surface-container-highest z-10 shrink-0"></div>
+<div class="md:w-[45%] bg-white p-stack-md rounded-xl shadow-sm border border-outline-variant/10">
+<div class="md:hidden font-display-lg text-headline-sm text-primary mb-base">2018</div>
+<h5 class="font-headline-sm mb-base">The Genesis</h5>
+<p class="text-on-surface-variant">Founded TRICOREA with a vision to simplify complex IT landscapes for the emerging digital economy.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-inverse-surface dark:bg-tertiary-container text-surface-container-lowest">
+<div class="max-w-container-max mx-auto px-margin-desktop py-stack-lg flex flex-col md:flex-row justify-between items-start gap-stack-md">
+<div class="space-y-stack-sm max-w-sm">
+<span class="font-display-lg text-headline-sm font-bold text-secondary-fixed">TRICOREA</span>
+<p class="text-surface-variant/80 font-body-md">Refining complex systems into powerful, clean, and hygienic technical solutions for the modern enterprise.</p>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<div class="flex flex-col gap-base">
+<span class="font-label-md text-secondary-fixed uppercase">Company</span>
+<a class="text-surface-variant/80 hover:text-white transition-colors" href="#">About Us</a>
+<a class="text-surface-variant/80 hover:text-white transition-colors" href="#">Services</a>
+<a class="text-surface-variant/80 hover:text-white transition-colors" href="#">Contact</a>
+</div>
+<div class="flex flex-col gap-base">
+<span class="font-label-md text-secondary-fixed uppercase">Legal</span>
+<a class="text-surface-variant/80 hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="text-surface-variant/80 hover:text-white transition-colors" href="#">Terms of Service</a>
+<a class="text-surface-variant/80 hover:text-white transition-colors" href="#">Security</a>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-desktop py-stack-md border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-base opacity-60">
+<p class="font-label-sm">© 2024 TRICOREA IT Consulting. All rights reserved.</p>
+<div class="flex gap-stack-md font-label-sm">
+<a class="hover:text-secondary-fixed" href="#">LinkedIn</a>
+<a class="hover:text-secondary-fixed" href="#">Twitter</a>
+<a class="hover:text-secondary-fixed" href="#">GitHub</a>
+</div>
+</div>
+</footer>
+<script>
+        // Interactive Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('h-16', 'shadow-lg');
+                nav.classList.remove('h-20', 'shadow-sm');
+            } else {
+                nav.classList.add('h-20', 'shadow-sm');
+                nav.classList.remove('h-16', 'shadow-lg');
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.glass-card, header, .group').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

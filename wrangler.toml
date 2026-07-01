@@ -1,0 +1,13 @@
+name = "url-shortener"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Bundle .html files as raw text so they can be imported directly in src/index.js.
+rules = [
+  { type = "Text", globs = ["**/*.html"], fallthrough = true }
+]
+
+# Run `wrangler kv namespace create URLS` and paste the returned id below.
+kv_namespaces = [
+  { binding = "URLS", id = "REPLACE_WITH_KV_NAMESPACE_ID", preview_id = "REPLACE_WITH_PREVIEW_KV_NAMESPACE_ID" }
+]

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Shortener</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 560px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+    line-height: 1.5;
+  }
+  h1 { font-size: 1.5rem; }
+  form { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+  label { font-size: 0.85rem; font-weight: 600; }
+  input {
+    padding: 0.6rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #999;
+    border-radius: 6px;
+  }
+  button {
+    padding: 0.65rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover { background: #1d4ed8; }
+  #result {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(37, 99, 235, 0.1);
+    display: none;
+    word-break: break-all;
+  }
+  #result.error { background: rgba(220, 38, 38, 0.1); }
+  #result a { color: #2563eb; font-weight: 600; }
+  #result button {
+    margin-top: 0.5rem;
+    background: #444;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    width: auto;
+  }
+</style>
+</head>
+<body>
+  <h1>URL Shortener</h1>
+  <form id="shorten-form">
+    <div>
+      <label for="url">Long URL</label>
+      <input id="url" name="url" type="url" placeholder="https://example.com/some/long/path" required>
+    </div>
+    <div>
+      <label for="alias">Custom name (optional)</label>
+      <input id="alias" name="alias" type="text" placeholder="my-link" pattern="[a-zA-Z0-9_-]{3,32}" title="3-32 letters, numbers, - or _">
+    </div>
+    <button type="submit">Shorten</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById("shorten-form");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const url = document.getElementById("url").value;
+      const alias = document.getElementById("alias").value;
+
+      result.style.display = "block";
+      result.className = "";
+      result.textContent = "Shortening...";
+
+      try {
+        const res = await fetch("/api/shorten", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ url, alias }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          result.className = "error";
+          result.textContent = data.error || "Something went wrong";
+          return;
+        }
+
+        result.innerHTML = "";
+        const link = document.createElement("a");
+        link.href = data.shortUrl;
+        link.textContent = data.shortUrl;
+        link.target = "_blank";
+        const copyBtn = document.createElement("button");
+        copyBtn.textContent = "Copy";
+        copyBtn.onclick = () => {
+          navigator.clipboard.writeText(data.shortUrl);
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+        };
+        result.appendChild(link);
+        result.appendChild(document.createElement("br"));
+        result.appendChild(copyBtn);
+      } catch (err) {
+        result.className = "error";
+        result.textContent = "Network error, please try again";
+      }
+    });
+  </script>
+</body>
+</html>
