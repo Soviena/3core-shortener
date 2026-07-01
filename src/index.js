@@ -70,7 +70,7 @@ async function handleShorten(request, env) {
     if (isBlacklisted(customAlias)) {
       return json({ error: "That custom name is not available" }, 400);
     }
-    const existing = await env.URLS.get(customAlias);
+    const existing = await env.KV.get(customAlias);
     if (existing !== null) {
       return json({ error: "That custom name is already taken" }, 409);
     }
@@ -78,7 +78,7 @@ async function handleShorten(request, env) {
   } else {
     for (let attempt = 0; attempt < 5; attempt++) {
       const candidate = randomSlug();
-      if ((await env.URLS.get(candidate)) === null) {
+      if ((await env.KV.get(candidate)) === null) {
         slug = candidate;
         break;
       }
@@ -88,7 +88,7 @@ async function handleShorten(request, env) {
     }
   }
 
-  await env.URLS.put(
+  await env.KV.put(
     slug,
     JSON.stringify({ url: targetUrl, created: Date.now() })
   );
@@ -98,7 +98,7 @@ async function handleShorten(request, env) {
 }
 
 async function handleRedirect(slug, request, env) {
-  const entry = await env.URLS.get(slug);
+  const entry = await env.KV.get(slug);
   if (entry === null) {
     return new Response("Short URL not found", { status: 404 });
   }

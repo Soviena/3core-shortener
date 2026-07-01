@@ -15,8 +15,8 @@ imports both HTML files as text at build time (see the `rules` entry in
    ```
 2. Create the KV namespace:
    ```
-   npx wrangler kv namespace create URLS
-   npx wrangler kv namespace create URLS --preview
+   npx wrangler kv namespace create KV
+   npx wrangler kv namespace create KV --preview
    ```
 3. Copy the `id` and `preview_id` values from the command output into
    `wrangler.toml`.
